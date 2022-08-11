@@ -1,0 +1,76 @@
+<script>
+
+function check(str, bracketsConfig) {
+
+  let openBrackets = [];
+  const bracketsPair = {};
+  
+      for (i=0; i<bracketsConfig.length; i++) {
+        for (j=0; j<bracketsConfig[i].length-1; j++) {          
+            openBrackets.push(bracketsConfig[i][j]);      
+            bracketsPair[bracketsConfig[i][j+1]] = bracketsConfig[i][j];             
+        }      
+      }
+
+      console.log('openBrackets = ', openBrackets);
+      console.log('bracketsPair = ', bracketsPair);
+      console.log('bracketsPair.length = ', Object.keys(bracketsPair).length);
+
+let stack = [];
+
+for (i = 0; i < str.length; i++) {
+  let currentSymbol = str[i];
+  let topElement = stack[stack.length - 1];
+
+  //проверяем, открывающаяся ли это скобка, если да, кладем в стек, если нет, выхлодим
+  if (openBrackets.includes(currentSymbol)) {  
+    
+    if (currentSymbol === topElement && bracketsPair[currentSymbol] === currentSymbol) { 
+    stack.pop();
+  } else {
+    stack.push(currentSymbol); 
+  }
+
+
+
+    //stack.push(currentSymbol);
+    console.log('кладем в stack = ', stack);
+  } else {
+    if (stack.length === 0) {
+      console.log('это не открывающаяся скобка - false = ', false);
+    }
+  
+
+  
+
+  //проверяем, скобка, которая лежит сверху стека - является ли она парой к текущей закрывающейся скобке
+  if (bracketsPair[currentSymbol] === topElement) {    
+    stack.pop();
+    console.log('удаляем из stack = ', stack);
+  } else {
+    console.log('сверху стека лежит скобка не пара текущей скобке false = ', false);
+  }
+}
+
+}
+
+console.log( 'итог = ', stack.length === 0);
+
+
+
+
+  }
+
+
+  //check('[(])', [['(', ')'], ['[', ']']]);
+
+  check('()', [['(', ')']]);
+
+
+
+
+
+
+
+    </script>
+      
